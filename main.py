@@ -9,10 +9,17 @@ while True:
         expense = {"amount": amount, "category": category, "description": description}
         expenses.append(expense)
         print("Expense added")
-        print(expenses)
 
     elif choice == "2":
-        print('Coming soon!')
+        if not expenses:
+            print("No expenses yet.")
+        else:
+            total = 0
+            for i,expense in enumerate(expenses, start= 1):
+                print(f"{i}. {expense['amount']} | {expense['category']} | {expense['description']}")
+                total += expense['amount']
+            print('Total:', total)
+
     elif choice == "3":
         print('Goodbye!')
         break
