@@ -14,7 +14,7 @@ def save_expenses(expenses):
         json.dump(expenses, f, indent= 2)
 
 def print_menu():
-    print("===Expense Tracker=== \n 1) Add expense \n 2) Show expense \n 3) Filter by category \n 4) Delete expense \n 5) Exit")
+    print("===Expense Tracker=== \n 1) Add expense \n 2) Show expense \n 3) Filter by category \n 4) Delete expense \n 5) Summery by category \n 6) Exit")
 
 def add_expense(expenses):
     amount = float(input("Amount:"))
@@ -59,6 +59,17 @@ def delete_expenses(expenses):
         else:
             print("Invalid number.")
 
+def summary_by_category(expenses):
+    if not expenses:
+        print("No expenses yet.")
+        return
+    totals ={}
+    for expense in expenses:
+        cat = expense["category"].lower()
+        totals[cat] = totals.get(cat, 0) + expense["amount"]
+    for cat, total in totals.items():
+        print(f"{cat}: {total}")
+ 
 def main():
     expenses = load_expenses()
     while True:
@@ -73,6 +84,8 @@ def main():
         elif choice == "4":
             delete_expenses(expenses)
         elif choice == "5":
+            summary_by_category(expenses)
+        elif choice == "6":
             print('Goodbye!')
             break
         else:
